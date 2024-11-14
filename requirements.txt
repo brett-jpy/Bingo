@@ -1,0 +1,6 @@
+flask
+flask_session
+requests
+gunicorn
+pymongo
+flask_socketio
