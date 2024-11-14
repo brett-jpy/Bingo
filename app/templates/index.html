@@ -1,0 +1,38 @@
+<!-- Handles Logins -->
+{% extends "_base.html" %}
+
+{% block title %}Bingo! - Login{% endblock %}
+
+{% block style %}
+{{super()}}
+<link rel="stylesheet" href="/static/index.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="content-fluid">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="login-form-holder">
+                <form>
+                    <div class="row">
+                        <div class="col login-form">
+                            <input type="text" id="username" class="form-control" placeholder="Enter a Username">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary login-form-button" onclick="loginForm()">Play!</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+{{super()}}
+<script src="/static/forms.js"></script>
+{% endblock %}
