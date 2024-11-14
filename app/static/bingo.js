@@ -191,7 +191,7 @@ const winningPositions = [
     [4, 8, 12, 16, 20]
 ]
 
-// My funciton - gets random elements from array
+// funciton gets random elements from array
 // https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
 function getRandom(arr, n) {
   var result = new Array(n),
@@ -208,9 +208,9 @@ function getRandom(arr, n) {
 }
 
 // My term list
-let bhcTerms = ["Solutioneering", "Luke and I", "Golden Ticket", "User Experience", "Quick Win", "Automation", "DevSecOps", "Run vs Change", "Defender for X", "Lift and Shift", "Zero Trust", "Lance", "Bubble up", "Cloud first", "We've Talked About This Before", "Work Together", "Capital Project", "Energy Forward", "Budget", "Schedule a Meeting", "Top Priority", "Get Creative", "You're the SME", "Can't Fail", "Paralysis Analysis", "Travel Freeze", "Security Admin"]
+let termList = ["need", "array", "of", "26", "words"]
 
-let bingoTerms = getRandom(bhcTerms, 26)
+let bingoTerms = getRandom(termList, 26)
 // console.log(bingoTerms)
 
 let iterator = 0;
