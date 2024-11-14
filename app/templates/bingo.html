@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+
+{% block title %}Bingo! - Let's Play! {% endblock %}
+
+{% block style %}
+{{super()}}
+<link rel="stylesheet" href="/static/bingo.css" />
+{% endblock %}
+
+{% block content %}
+<!-- Image and text -->
+<nav class="navbar navbar-custom">
+    <a class="navbar-brand" href="#">
+      <img src="/static/images/bingo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    </a>
+    <p>Welcome! {{ session["username"] }}</p>
+    <form class="form-inline my-2 my-lg-0">
+        <a href="/logout" class="btn btn-outline-custom my-2 my-sm-0 active" role="button" aria-pressed="true">Logout</a>
+    </form>
+</nav>
+
+<div class="container">
+    <table id="tblBingo"></table>
+
+<div class="letter-div">
+    <table id="tblLetter">
+        <tr>
+            <td class="letters-bingo">B</td>
+            <td class="letters-bingo">I</td>
+            <td class="letters-bingo">N</td>
+            <td class="letters-bingo">G</td>
+            <td class="letters-bingo">O</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.3/tsparticles.bundle.min.js"></script>
+<script src="/static/bingo.js"></script>
+{% endblock %}
