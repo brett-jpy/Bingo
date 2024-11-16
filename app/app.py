@@ -87,7 +87,7 @@ def disconnect():
 # Handles Client Check-ins - acknowledges them with a response
 @socketio.on('check_in')
 def client_checkin(json):
-    emit('ack_check_in', json)
+    emit('ack_check_in', json, broadcast=True)
 
 # Broadcasts a message to all clients!
 @socketio.on('winner')
