@@ -12120,6 +12120,8 @@ blockquote {
   border-radius: 15px 27px 25px 25px/25px 25px 305px 635px;
 }
 
+/* Commented to get rid of the obnioux white background on the table */
+
 /* table th,
 table td {
   background-color: #fff;

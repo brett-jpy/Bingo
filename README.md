@@ -4,6 +4,8 @@ Tracks a users bingo progress, all users poll the status of each other and are n
 
 ## Style
 
+* Line 12123 in `sketchy_bootstrap.css` is commented out
+
 ### Colors
 
 Blue: #406ba0
