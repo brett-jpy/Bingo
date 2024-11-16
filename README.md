@@ -8,10 +8,10 @@ Tracks a users bingo progress, all users poll the status of each other and are n
 
 ### Colors
 
-Blue: #406ba0
-Red/Pink: #e7284e
-Gray: #1b1e21
-Darker Gray: #181818
+* Blue: #406ba0
+* Red/Pink: #e7284e
+* Gray: #1b1e21
+* Darker Gray: #181818
 
 ## Docker 
 
