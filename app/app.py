@@ -1,29 +1,34 @@
 from flask import Flask, render_template, url_for, redirect, request, session, jsonify, make_response
 from flask_session import Session
 import os
-from pymongo import MongoClient
-from bson.json_util import dumps
 import time
 import json
+from flask_socketio import SocketIO, emit, send
+from pymongo import MongoClient
+from bson.json_util import dumps
+from datetime import datetime
+import uuid
 
 """
 Bingo App - Tries to be aware of others users and notify when someone wins!!
 
 v1: Uses janky ajax calls every second to check if theres a winner
 v2: Should use flask_socketio to hopefully remove jank
+   -- now usses socket io and the jank is def removed!
 """
-
-###########
-# Flask
-###########
-app = Flask(__name__)
-
 ###########
 # Mongo
 ###########
 client = MongoClient("192.168.1.5:27017")
 database = client["Bingo"]
-coll = database["tracking"]
+coll = database["leaderboard"]
+
+###########
+# Flask
+###########
+app = Flask(__name__)
+app.config['SECRET_KEY'] = str(uuid.uuid4())
+socketio = SocketIO(app, logger=True, engineio_logger=True, manage_session=False) # Set logger = False in prod
 
 ###########
 # Session
@@ -47,7 +52,8 @@ def index():
         return redirect(url_for("bingo"))
     elif session.get("username") != None:
         return redirect(url_for("bingo"))
-    return render_template("index.html")
+    vic_data = coll.find().limit(10)
+    return render_template("index.html", vic_data=vic_data)
 
 # Runs the actual game
 @app.route("/bingo", methods=["GET"])
@@ -57,7 +63,7 @@ def bingo():
     if not session["username"]:
         return redirect(url_for("index"))
     else:
-        return render_template("bingo.html")
+        return render_template("bingo.html", username=session.get("username"))
 
 # Destroys your session, thus forcing you back to the homepage
 @app.route("/logout")
@@ -66,27 +72,28 @@ def logout():
     return redirect(url_for("index"))
 
 ###########
-# Data Routes
+# SocketIO Routes
 ###########
-@app.route("/notify", methods=["GET", "POST"])
-def notify():
-    if request.method == "POST":
-        data = request.get_json()["username"] # Not doing anything with this
-        _id = coll.insert_one({ "result": "winner", "username": session.get("username") })
-        print(_id.inserted_id)
-        time.sleep(5)
-        coll.delete_one({ "_id": _id.inserted_id })
-        return make_response(json.dumps({"status": "Done!"}), 200)
-    return make_response(json.dumps({"status": "none"}), 200)
+# Handles Auth
+@socketio.on('connect')
+def connect(data):
+    emit('message', json.dumps({'message': 'New User Connected'}), broadcast=True)
 
-@app.route("/polling")
-def polling():
-    lkup = coll.find_one({ "result": "winner" })
-    if lkup == None:
-        return make_response(json.dumps({"status": "none"}), 200)
-    else:
-        return make_response(dumps(lkup), 200)
+# Handles Disconnect
+@socketio.on('disconnect')
+def disconnect():
+    emit('disconnect')
 
-# Should be removed before running with gunicorn
+# Handles Client Check-ins - acknowledges them with a response
+@socketio.on('check_in')
+def client_checkin(json):
+    emit('ack_check_in', json)
+
+# Broadcasts a message to all clients!
+@socketio.on('winner')
+def client_checkin(json):
+    coll.insert_one({"username": json["username"]["name"], "victory_date": datetime.now().strftime("%b %d %Y")})
+    emit('finalist', json["username"], broadcast=True, callback="noted")
+
 if __name__=="__main__":
-    app.run(debug=True)
+    socketio.run(app)

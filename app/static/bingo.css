@@ -3,60 +3,44 @@
 }
 
 .btn-outline-custom {
-	/* background-color: #fc49ab; */
 	--myPink: #fc49ab;
 	position: relative;
 	z-index: 1;
 	background: var(--myPink);
 	border: 3px solid;
 	border-color: var(--myPink-400);
-	border-radius: 0.75rem;
+	border-radius: 0.10 rem;
 	color: var(--myPink-300);
 	padding: 0.75rem 1rem;
 	text-decoration: none;
 	transition: 250ms ease-in-out;
-	transition-property: all;
-	  
+	transition-property: all;	  
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-	background-color: black;
-	font-family: "Vibur", sans-serif;
+    background-color: #1b1e21;
+	z-index: 0;
 }
 
-body:focus {
-    outline: none;
-}
-
-.container {
+.container-fluid {
 	padding-top: 30px;
-    width: 100vw;
+	width: 100vw;
     display: flex;
+	position: relative;
     justify-content: center;
 	align-items: center;
 	align-content: center;
+	z-index: 50;
 }
 
 #tblBingo {
-    border-collapse: collapse;
-    height: 50rem;
-    width: 50rem;
     text-align: center;
     font-size: 18pt;
     cursor: pointer;
 	color: #5fe8ff;
-	text-shadow:
-	0 0 7px #5fe8ff,
-	0 0 10px #5fe8ff,
-	0 0 21px #5fe8ff,
-	0 0 42px #044752,
-	0 0 82px #044752,
-	0 0 92px #044752,
-	0 0 102px #044752,
-	0 0 151px #044752;
+	height: 70vh;
+	background-color: #1b1e21;
+	width: 80%;
 }
 
 #tblBingo td {
@@ -67,27 +51,16 @@ body:focus {
     height: 100%;
     display: flex;
     justify-content: center;
+	flex-wrap: wrap;
     align-items: center;
-    border-radius: 20%;
-    border: 1px solid #fc49ab;
+    border-radius: 10%;
+    border: 5px solid #e7284e;
+	background-color: #181818;
 }
 
 .cell-format:hover {
-    background-color: #044752;
+    background-color: white;
 	color: black;
-}
-
-.letter-div {
-    height: 20vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.letters-bingo {
-    padding: 0 1.3rem;
-    font-size: 20pt;
-    display: none;
 }
 
 .strickout {
@@ -109,4 +82,23 @@ body:focus {
 
 .show-bingo {
     display: inline;
+}
+
+/* for the alert */
+.win-alert {
+	display: none;
+}
+
+.view-win-alert {
+	position: absolute;
+	right: 10px;
+	top: 25px;
+	margin-top: 45px;
+	width: 25%;
+	z-index: 99;
+}
+
+.welcome {
+	color: black;
+	font-size: x-large;
 }

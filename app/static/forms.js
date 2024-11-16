@@ -1,4 +1,4 @@
-function loginForm(){
+function submitForm() {
     let username = $("#username").val()
     console.log(username)
     $.ajax({
@@ -10,17 +10,26 @@ function loginForm(){
         }),
         dataType: 'json',
             success: function (textStatus, status) {
-            // console.log(textStatus);
             console.log(status);
-            // Simulate an HTTP redirect:
             window.location.replace("/bingo");
            },
             error: function(xhr, textStatus, error) {
-            // console.log(xhr.responseText);
-            // console.log(xhr.statusText);
-            // console.log(textStatus);
             console.log(error);
             window.location.replace("/bingo");
             }
     })
 };
+
+// Get the input field
+var input = document.getElementById("username");
+
+// Execute a function when the user presses a key on the keyboard
+input.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("loginForm").click();
+  }
+}); 

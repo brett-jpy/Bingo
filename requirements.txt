@@ -2,5 +2,8 @@ flask
 flask_session
 requests
 gunicorn
-pymongo
 flask_socketio
+art
+gevent
+gevent-websocket
+pymongo

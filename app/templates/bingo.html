@@ -8,32 +8,58 @@
 {% endblock %}
 
 {% block content %}
+<meta id="username" data-name="{{username}}">
 <!-- Image and text -->
-<nav class="navbar navbar-custom">
-    <a class="navbar-brand" href="#">
+<nav class="nav navbar-custom" style="position: relative;">
+    <a class="nav-link" href="#">
       <img src="/static/images/bingo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     </a>
-    <p>Welcome! {{ session["username"] }}</p>
-    <form class="form-inline my-2 my-lg-0">
-        <a href="/logout" class="btn btn-outline-custom my-2 my-sm-0 active" role="button" aria-pressed="true">Logout</a>
+    <p class="welcome" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Welcome! {{ session["username"] }}</p>
+    <form class="form-inline my-2 my-lg-0" style="position: absolute; right: 25px; top: 5px;">
+        <a href="/logout" class="btn btn-primary btn-block my-2 my-sm-0 active" role="button" style="background-color: #e7284e;" aria-pressed="true">Logout</a>
     </form>
 </nav>
 
-<div class="container">
-    <table id="tblBingo"></table>
-
-<div class="letter-div">
-    <table id="tblLetter">
-        <tr>
-            <td class="letters-bingo">B</td>
-            <td class="letters-bingo">I</td>
-            <td class="letters-bingo">N</td>
-            <td class="letters-bingo">G</td>
-            <td class="letters-bingo">O</td>
-        </tr>
-    </table>
+<div class="alert alert-dismissible alert-danger win-alert view-win-alert" id="win-alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">Winner!!</h4>
+    <p id="alert-message"></p>
+    <p class="mb-0">Refresh to Play Again!</p>
 </div>
+  
+  
 
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-2">
+            <div style="display: flex; align-items: center; justify-content: center; width: 20vw;">
+
+            <table class="table table-hover" id="table-id">
+                <thead>
+                  <tr class="table-primary">
+                    <th scope="col">Player</th>
+                    <th scope="col">Hits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr class="table-info" id="table-data">
+                    <!-- Data appended here by JS -->
+                  </tr>
+                  
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <!-- Main Bingo Square -->
+        <div class="col-10" style="width: 80vw; display: flex; justify-content: center; align-items: center;">
+
+            <table id="tblBingo"></table>
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}
@@ -41,7 +67,6 @@
 
 {% block script %}
 {{super()}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.3/tsparticles.bundle.min.js"></script>
-<script src="/static/bingo.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="/static/socket.js"></script>
 {% endblock %}
