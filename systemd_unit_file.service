@@ -1,0 +1,18 @@
+[Unit]
+Description=Gunicorn Instance to Run Bingo
+After=network.target
+
+[Service]
+User=bingo
+Group=bingo
+WorkingDirectory=/opt/bingo/app
+Environment="PATH=/opt/bingo/app/venv"
+ExecStart=/home/bingo/.local/bin/gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 -b 0.0.0.0:5000 app:app
+#ExecStart=/usr/bin/python3 /opt/bingo/app/app.py
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -16,5 +16,5 @@ COPY ./app /app
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 
-# CMD ["app.py" ]
-CMD ["/usr/local/bin/gunicorn"  , "-b", "0.0.0.0:8000", "app:app"]
+# Run with Gunicorn - https://flask-socketio.readthedocs.io/en/latest/deployment.html#gunicorn-web-server
+CMD ["/usr/local/bin/gunicorn", "-k", "geventwebsocket.gunicorn.workers.GeventWebSocketWorker", "-w", "1", "-b", "0.0.0.0:5000", "app:app"]

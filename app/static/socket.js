@@ -78,9 +78,9 @@ function getRandom(arr, n) {
 }
 
 // My term list
-let terms = ["word", "list", "goes", "here", "need 25"]
+let myTerms = ["word", "list", "here"]
 
-let bingoTerms = getRandom(terms, 26)
+let bingoTerms = getRandom(myTerms, 26)
 
 let iterator = 0;
 

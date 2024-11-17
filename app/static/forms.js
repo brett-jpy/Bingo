@@ -11,11 +11,11 @@ function submitForm() {
         dataType: 'json',
             success: function (textStatus, status) {
             console.log(status);
-            window.location.replace("/bingo");
+            window.location = "/bingo";
            },
             error: function(xhr, textStatus, error) {
             console.log(error);
-            window.location.replace("/bingo");
+            window.location = "/bingo";
             }
     })
 };
